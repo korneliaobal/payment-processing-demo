@@ -1,0 +1,9 @@
+.git
+**/node_modules
+**/target
+**/dist
+**/.angular
+**/.idea
+**/*.log
+.env
+backend/src/main/resources/static
