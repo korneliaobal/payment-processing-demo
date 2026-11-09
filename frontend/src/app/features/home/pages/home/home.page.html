@@ -1,0 +1,108 @@
+<section class="welcome-panel">
+  <div class="welcome-copy">
+    <span class="welcome-label">STANOWISKO OPERACYJNE</span>
+    <h2>Każde zlecenie<br />pod kontrolą.</h2>
+    <p>
+      Przygotuj nową płatność, sprawdź wyniki walidacji i wróć do zapisanych zleceń — wszystko w
+      jednym miejscu.
+    </p>
+    <div class="welcome-actions">
+      <button class="primary" type="button" (click)="flow.reset()">
+        Nowe zlecenie <span aria-hidden="true">＋</span></button
+      ><a class="history-link" [routerLink]="routes.history"
+        >Przejdź do historii <span aria-hidden="true">→</span></a
+      >
+    </div>
+  </div>
+  <div class="welcome-mark" aria-hidden="true">
+    <span>↗</span>
+    <div class="mark-line"></div>
+    <small>OBALFLOW / PAYMENT OPERATIONS</small>
+  </div>
+</section>
+<div class="overview-heading">
+  <div>
+    <h2>Przegląd systemu</h2>
+    <p>Zlecenia zapisane w pamięci demo · bieżąca instancja</p>
+  </div>
+  <button
+    class="text-button"
+    type="button"
+    (click)="dashboard.refresh()"
+    [disabled]="dashboard.loading()"
+  >
+    Odśwież ↻
+  </button>
+</div>
+@if (dashboard.error(); as message) {
+  <app-alert [message]="message" tone="error" />
+}
+@if (dashboard.loading()) {
+  <p class="loading-message" role="status">Pobieranie aktualnych danych…</p>
+}
+<div class="metrics" [attr.aria-busy]="dashboard.loading()">
+  @for (metric of metrics; track metric.key) {
+    <app-metric-card
+      [label]="metric.label"
+      [value]="dashboard.data()?.counts?.[metric.key] ?? null"
+      [tone]="metric.tone"
+      [description]="metric.description"
+    />
+  }
+</div>
+@if (dashboard.updatedAt(); as updatedAt) {
+  <p class="updated-at">Ostatni odczyt: {{ updatedAt | date: 'HH:mm:ss' }}</p>
+}
+<app-panel
+  title="Ostatnie zlecenia"
+  description="Pięć najnowszych płatności zapisanych w systemie."
+>
+  <a panel-action class="text-button" [routerLink]="routes.history">Zobacz wszystkie →</a>
+  @if (!dashboard.loading() && dashboard.data(); as data) {
+    @if (data.recentPayments.length === 0) {
+      <div class="empty-state">
+        <span aria-hidden="true">▤</span>
+        <h3>Twoje pierwsze zlecenie czeka</h3>
+        <p>Utwórz płatność, aby zobaczyć tutaj jej status i wyniki przetwarzania.</p>
+        <button class="secondary" type="button" (click)="flow.reset()">Utwórz zlecenie →</button>
+      </div>
+    }
+    @for (payment of data.recentPayments; track payment.paymentId) {
+      <a
+        class="recent-payment"
+        [routerLink]="[routes.base, payment.paymentId]"
+        [attr.aria-label]="'Szczegóły zlecenia ' + payment.paymentId"
+      >
+        <span class="payment-icon" aria-hidden="true">↗</span>
+        <div class="payment-info">
+          <strong>{{ payment.debtor.name || 'Brak nazwy nadawcy' }}</strong
+          ><small
+            >{{
+              payment.createdAt
+                ? (payment.createdAt | date: 'dd.MM.yyyy HH:mm')
+                : 'Brak zapisanej daty'
+            }}<span class="id-divider">·</span>{{ payment.paymentId }}</small
+          >
+        </div>
+        <div class="payment-outcome">
+          <strong
+            >{{ payment.totalAmount === null ? '—' : (payment.totalAmount | number: '1.2-2') }}
+            {{ payment.currency }}</strong
+          ><app-status-badge
+            [label]="presentation[payment.status].label"
+            [tone]="presentation[payment.status].tone"
+          />
+        </div>
+        <span class="details-arrow" aria-hidden="true">→</span>
+      </a>
+    }
+  } @else {
+    <p class="recent-placeholder">
+      {{
+        dashboard.loading()
+          ? 'Pobieranie ostatnich zleceń…'
+          : 'Lista będzie dostępna po połączeniu z systemem.'
+      }}
+    </p>
+  }
+</app-panel>

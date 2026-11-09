@@ -1,0 +1,236 @@
+:host {
+  display: block;
+}
+.welcome-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 36px;
+  border-radius: 14px;
+  background: #143b30;
+  color: #f2f6ef;
+  overflow: hidden;
+}
+.welcome-copy {
+  max-width: 540px;
+}
+.welcome-label {
+  color: #a8c295;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+}
+.welcome-copy h2 {
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.2;
+  margin: 16px 0;
+  letter-spacing: -1px;
+}
+.welcome-copy p {
+  color: #b0c4b9;
+  max-width: 450px;
+}
+.welcome-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.welcome-actions .primary {
+  background: #d9e8c4;
+  color: #234333;
+  border-color: #d9e8c4;
+}
+.welcome-actions .primary:hover {
+  background: #c5d9ab;
+}
+.history-link {
+  color: #e4eddb;
+  font-size: 11px;
+  text-decoration: none;
+}
+.history-link span {
+  margin-left: 10px;
+}
+.welcome-mark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 210px;
+}
+.welcome-mark > span {
+  display: grid;
+  place-items: center;
+  width: 125px;
+  height: 125px;
+  border: 1px solid #4b6c56;
+  border-radius: 28px;
+  color: #c0d8a4;
+  font-size: 76px;
+  transform: rotate(-8deg);
+  background: #244b39;
+}
+.mark-line {
+  height: 1px;
+  width: 130px;
+  background: #4b6c56;
+  margin: 25px 0 12px;
+}
+.welcome-mark small {
+  color: #90ac92;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+}
+.overview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px 0 16px;
+}
+.overview-heading p {
+  font-size: 11px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.updated-at {
+  font-size: 10px;
+  text-align: right;
+  margin: 12px 0 24px;
+}
+.metrics + app-panel {
+  margin-top: 24px;
+  display: block;
+}
+.loading-message {
+  margin-bottom: 12px;
+}
+.recent-payment {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 26px;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+}
+.recent-payment:last-child {
+  border-bottom: 0;
+}
+.recent-payment:hover {
+  background: #f8faf6;
+}
+.recent-payment:focus-visible,
+.history-link:focus-visible {
+  outline: 2px solid #91ac72;
+  outline-offset: -3px;
+}
+.payment-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  height: 38px;
+  border: 1px solid #e1e8d9;
+  border-radius: 10px;
+  background: #f2f6eb;
+  color: #77945b;
+  font-size: 20px;
+}
+.payment-info {
+  flex: 1;
+  min-width: 0;
+}
+.payment-info strong,
+.payment-outcome strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+.payment-info small {
+  display: block;
+  color: var(--color-muted);
+  font-size: 10px;
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+.id-divider {
+  margin: 0 8px;
+}
+.payment-outcome {
+  text-align: right;
+  flex-shrink: 0;
+}
+.payment-outcome strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.details-arrow {
+  margin-left: 12px;
+  color: #6b8656;
+}
+.empty-state {
+  text-align: center;
+  padding: 36px 24px;
+}
+.empty-state > span {
+  font-size: 30px;
+  color: #80966d;
+}
+.empty-state h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.empty-state .secondary {
+  margin-top: 20px;
+}
+.recent-placeholder {
+  padding: 26px;
+}
+@media (max-width: 1100px) {
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .welcome-mark {
+    flex-basis: 150px;
+  }
+}
+@media (max-width: 700px) {
+  .welcome-panel {
+    padding: 26px;
+  }
+  .welcome-mark {
+    display: none;
+  }
+  .welcome-actions {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .metrics {
+    gap: 12px;
+  }
+  .recent-payment {
+    padding: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .payment-icon {
+    display: none;
+  }
+  .payment-info {
+    flex-basis: 100%;
+  }
+  .payment-outcome {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+  .payment-outcome strong {
+    margin: 0;
+  }
+  .details-arrow {
+    margin: 0;
+  }
+}

@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 26px;
+  border-bottom: 1px solid #edf0eb;
+}
+
+.panel-header p {
+  font-size: 11px;
+}
+
+.section-number {
+  color: #91a27f;
+  font-size: 11px;
+  padding-right: 9px;
+}
+
+.counter {
+  background: #f3f6ee;
+  color: #76866d;
+  border-radius: 5px;
+  font-size: 10px;
+  padding: 6px 9px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .panel-header {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 700px) {
+  .panel-header {
+    padding: 20px;
+  }
+}

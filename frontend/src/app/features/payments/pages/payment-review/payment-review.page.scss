@@ -1,0 +1,54 @@
+:host {
+  display: block;
+}
+
+.review-sender {
+  padding: 26px;
+  background: #fafbf7;
+  border-bottom: 1px solid #edf0eb;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.account-number {
+  font-family: ui-monospace, monospace;
+  color: #83907b;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.review-recipient {
+  padding: 24px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid #edf0eb;
+  font-size: 13px;
+}
+
+.review-recipient div {
+  display: grid;
+  gap: 9px;
+}
+
+.review-recipient small {
+  font-size: 9px;
+  color: #929e87;
+  letter-spacing: 1px;
+}
+
+.back-button {
+  margin: 20px 26px;
+}
+
+@media (max-width: 700px) {
+  .review-recipient {
+    align-items: start;
+    flex-direction: column;
+  }
+}

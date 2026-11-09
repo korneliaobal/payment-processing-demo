@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+.metric-card {
+  padding: 22px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+.metric-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--color-muted);
+}
+.metric-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-muted);
+}
+[data-tone='success'] .metric-dot {
+  background: #6b9749;
+}
+[data-tone='warning'] .metric-dot {
+  background: #bf984a;
+}
+[data-tone='danger'] .metric-dot {
+  background: #bb705b;
+}
+strong {
+  display: block;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  margin: 12px 0 6px;
+}
+p {
+  font-size: 10px;
+}

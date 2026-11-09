@@ -1,0 +1,23 @@
+:host {
+  display: inline-block;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  border-radius: 30px;
+  padding: 7px 11px;
+  white-space: nowrap;
+  background: var(--color-surface) 5dd;
+  color: #94762e;
+}
+
+.badge[data-tone='success'] {
+  background: #eaf2e2;
+  color: #527d38;
+}
+
+.badge[data-tone='danger'] {
+  background: #faeae5;
+  color: #aa634f;
+}

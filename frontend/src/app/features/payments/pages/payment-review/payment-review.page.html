@@ -1,0 +1,42 @@
+<div class="content-grid">
+  <app-panel
+    class="review-panel"
+    title="Sprawdź dane zlecenia"
+    description="Potwierdź nadawcę, rachunki odbiorców i kwoty."
+    counter="DO WYSŁANIA"
+  >
+    <div class="review-sender">
+      <span class="eyebrow">NADAWCA</span>
+      <h3>{{ draft.value().debtorName }}</h3>
+      <div class="account-number">{{ draft.payload().debtor.accountNumber }}</div>
+    </div>
+    @for (recipient of draft.payload().transactions; track $index; let i = $index) {
+      <div class="review-recipient">
+        <div>
+          <small>ODBIORCA {{ i + 1 }}</small
+          ><strong>{{ recipient.creditor.name }}</strong
+          ><span class="account-number">{{ recipient.creditor.accountNumber }}</span>
+        </div>
+        <strong>{{ recipient.amount | number: '1.2-2' }} {{ draft.value().currency }}</strong>
+      </div>
+    }
+    <button
+      class="text-button back-button"
+      type="button"
+      [routerLink]="routes.new"
+      [disabled]="flow.isUploading()"
+    >
+      ← Wróć do edycji
+    </button>
+  </app-panel>
+  <app-payment-summary
+    [amount]="draft.total()"
+    [currency]="draft.value().currency"
+    [transactionCount]="draft.recipients().length"
+    heading="ŁĄCZNA KWOTA"
+    description="Wysłanie rozpocznie kontrolę płatności i każdej transakcji."
+    actionLabel="Wyślij do przetwarzania"
+    [busy]="flow.isUploading()"
+    (action)="flow.submit()"
+  />
+</div>

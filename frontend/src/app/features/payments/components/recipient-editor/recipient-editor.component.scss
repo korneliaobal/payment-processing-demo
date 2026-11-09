@@ -1,0 +1,74 @@
+:host {
+  display: block;
+}
+
+.recipient {
+  padding: 22px 26px;
+  border-bottom: 1px solid #edf0eb;
+}
+
+.recipient-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 19px;
+}
+
+.recipient-heading strong {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.recipient-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a5b891;
+  margin-right: 7px;
+}
+
+.remove {
+  border: 0;
+  background: none;
+  color: #89917f;
+  font-size: 10px;
+}
+
+.recipient-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 145px;
+  gap: 19px 14px;
+}
+
+.recipient-name {
+  grid-column: 1 / -1;
+}
+
+.amount-input {
+  position: relative;
+}
+
+.amount-input input {
+  padding-right: 42px;
+}
+
+.amount-input span {
+  position: absolute;
+  right: 12px;
+  top: 14px;
+  color: #85917c;
+  font-size: 10px;
+}
+
+@media (max-width: 700px) {
+  .recipient {
+    padding: 20px;
+  }
+  .recipient-fields {
+    grid-template-columns: 1fr;
+  }
+  .recipient-name {
+    grid-column: auto;
+  }
+}

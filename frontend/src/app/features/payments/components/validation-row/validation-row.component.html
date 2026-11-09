@@ -1,0 +1,18 @@
+<div class="validation-row">
+  <div>
+    <strong>{{ title() }}</strong
+    ><small>{{ description() }}</small>
+    @for (reason of reasons(); track $index) {
+      <p class="rejection-reason">{{ reason }}</p>
+    }
+    @if (status() === 'NOT_OK' && reasons().length === 0) {
+      <p class="rejection-reason">System nie zapisał szczegółowego powodu odrzucenia.</p>
+    }
+  </div>
+  <div class="validation-amount">
+    @if (amount() !== null) {
+      {{ amount() | number: '1.2-2' }} {{ currency() }}
+    }
+    <app-status-badge [label]="presentation().label" [tone]="presentation().tone" />
+  </div>
+</div>
