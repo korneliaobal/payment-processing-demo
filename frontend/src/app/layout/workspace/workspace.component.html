@@ -1,0 +1,52 @@
+<div class="workspace">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/" aria-label="ObalFlow — strona główna"
+      ><span class="brand-icon">O</span> ObalFlow<span class="brand-dot">.</span></a
+    >
+    <div class="workspace-label">WORKSPACE</div>
+    <a class="nav-item" routerLinkActive="nav-active" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="workspaceRoutes.home"
+      ><span>▦</span> Pulpit operatora <span class="nav-arrow">›</span></a
+    >
+    <a class="nav-item" [class.nav-active]="isPaymentWorkflow()" [routerLink]="routes.new"
+      ><span>▤</span> Obsługa płatności <span class="nav-arrow">›</span></a
+    >
+    <a class="nav-item" routerLinkActive="nav-active" [routerLink]="routes.history"
+      ><span>◷</span> Historia zleceń <span class="nav-arrow">›</span></a
+    >
+    <div class="sidebar-note">HOSTED DEMO · dane w pamięci</div>
+    <div class="operator">
+      <div class="avatar">OB</div>
+      <div><strong>Operator bankowy</strong><small>Stanowisko operacyjne</small></div>
+    </div>
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <span>Bankowość operacyjna <span class="slash">/</span> <strong>Płatności</strong></span>
+    </header>
+    <nav class="mobile-nav" aria-label="Nawigacja">
+      <a [routerLink]="workspaceRoutes.home">Pulpit</a>
+      <a [routerLink]="routes.new">Obsługa płatności</a
+      ><a [routerLink]="routes.history">Historia zleceń</a>
+    </nav>
+    <main>
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">CENTRUM PŁATNOŚCI</div>
+          <h1>{{ heading().title }}</h1>
+          <p>{{ heading().description }}</p>
+        </div>
+        <span class="heading-icon">↗</span>
+      </div>
+      @if (isPaymentWorkflow()) {
+        <app-stepper [steps]="steps" [activeStep]="stage()" label="Etapy zlecenia" />
+      }
+      @if (isPaymentWorkflow() && flow.errorMessage(); as message) {
+        <app-alert [message]="message" tone="error" />
+      }
+      <router-outlet />
+      <footer>
+        <span>ObalFlow. <span class="footer-divider">/</span> Payment Operations</span>
+      </footer>
+    </main>
+  </div>
+</div>

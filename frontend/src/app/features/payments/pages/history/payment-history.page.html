@@ -1,0 +1,112 @@
+<app-panel
+  title="Historia zleceń"
+  description="Płatności zapisane w pamięci demo, od najnowszych."
+  [counter]="history.result().totalElements + ' zleceń'"
+>
+  <button
+    panel-action
+    class="text-button"
+    type="button"
+    (click)="history.refresh()"
+    [disabled]="history.loading()"
+  >
+    Odśwież ↻
+  </button>
+  <div class="history-toolbar">
+    <label
+      >Status zlecenia
+      <select [ngModel]="history.filter()" (ngModelChange)="history.changeFilter($event)">
+        <option value="">Wszystkie</option>
+        <option value="PENDING">W trakcie</option>
+        <option value="OK">Zaakceptowane</option>
+        <option value="NOT_OK">Odrzucone</option>
+      </select>
+    </label>
+    <button class="primary" type="button" (click)="flow.reset()">Nowe zlecenie ＋</button>
+  </div>
+  @if (history.error(); as message) {
+    <app-alert [message]="message" tone="error" />
+  }
+  @if (history.loading()) {
+    <p class="history-message" role="status">Pobieranie historii…</p>
+  } @else if (history.result(); as pageResult) {
+    @if (pageResult.content.length === 0) {
+      <p class="history-message">Brak zleceń dla wybranego statusu.</p>
+    } @else {
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Data / identyfikator</th>
+              <th>Nadawca</th>
+              <th>Transakcje</th>
+              <th>Kwota</th>
+              <th>Status</th>
+              <th><span class="visually-hidden">Szczegóły</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (payment of pageResult.content; track payment.paymentId) {
+              <tr>
+                <td data-label="Data / ID">
+                  <strong>{{
+                    payment.createdAt
+                      ? (payment.createdAt | date: 'dd.MM.yyyy HH:mm')
+                      : 'Brak zapisanej daty'
+                  }}</strong
+                  ><small>{{ payment.paymentId }}</small>
+                </td>
+                <td data-label="Nadawca">
+                  {{ payment.debtor.name || 'Brak nazwy nadawcy'
+                  }}<small>{{ payment.debtor.accountNumber }}</small>
+                </td>
+                <td data-label="Transakcje">{{ payment.transactionCount }}</td>
+                <td class="amount" data-label="Kwota">
+                  {{ payment.totalAmount === null ? '—' : (payment.totalAmount | number: '1.2-2') }}
+                  {{ payment.currency }}
+                </td>
+                <td data-label="Status">
+                  <app-status-badge
+                    [label]="presentation[payment.status].label"
+                    [tone]="presentation[payment.status].tone"
+                  />
+                </td>
+                <td data-label="Szczegóły">
+                  <a
+                    class="text-button"
+                    [routerLink]="[routes.base, payment.paymentId]"
+                    [attr.aria-label]="'Szczegóły zlecenia ' + payment.paymentId"
+                    >Szczegóły →</a
+                  >
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+    <div class="pagination">
+      <span>Strona {{ pageResult.number + 1 }} z {{ pageResult.totalPages || 1 }}</span>
+      <div>
+        <button
+          class="secondary"
+          type="button"
+          [disabled]="history.page() === 0"
+          (click)="history.changePage(history.page() - 1)"
+        >
+          ← Poprzednia</button
+        ><button
+          class="secondary"
+          type="button"
+          [disabled]="history.page() + 1 >= pageResult.totalPages"
+          (click)="history.changePage(history.page() + 1)"
+        >
+          Następna →
+        </button>
+      </div>
+    </div>
+    <p class="history-note">
+      Dane demo są przechowywane w pamięci i znikają po restarcie aplikacji.
+    </p>
+  }
+</app-panel>

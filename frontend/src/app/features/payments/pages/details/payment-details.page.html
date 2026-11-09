@@ -1,0 +1,28 @@
+@if (error(); as message) {
+  <app-alert [message]="message" tone="error" />
+}
+@if (payment(); as p) {
+  <app-result-banner [status]="p.status" [paymentId]="p.paymentId" />
+  <app-panel title="Wyniki kontroli" description="Statusy odczytane z systemu przetwarzania płatności."
+    [counter]="p.transactions.length + ' / ' + p.payment.transactionCount + ' transakcji'">
+    <app-validation-row title="Kontrola płatności" description="Dane nadawcy i liczba transakcji"
+      [status]="p.paymentValidation.status" [reasonCodes]="p.paymentValidation.reasons" />
+    @for (t of p.transactions; track t.index) {
+      <app-validation-row [title]="t.transaction.creditor.name || 'Brak nazwy odbiorcy'"
+        [description]="t.transaction.creditor.accountNumber" [amount]="t.transaction.amount"
+        [currency]="p.payment.currency" [status]="t.validation.status" [reasonCodes]="t.validation.reasons" />
+    }
+  </app-panel>
+  <div class="result-actions">
+    <button class="secondary" type="button" (click)="showTechnical.set(!showTechnical())">
+      {{ showTechnical() ? 'Ukryj dane techniczne' : 'Pokaż odpowiedź API' }}
+    </button>
+    <button class="secondary" type="button" (click)="refreshStatus(p.paymentId)">Sprawdź status ↻</button>
+    <button class="primary" type="button" (click)="flow.reset()">Nowe zlecenie ＋</button>
+  </div>
+  @if (showTechnical()) {
+    <section class="panel technical"><h2>Odpowiedź systemu</h2><pre>{{ p | json }}</pre></section>
+  }
+} @else {
+  @if (!error()) { <p role="status">Pobieranie wyników kontroli…</p> }
+}

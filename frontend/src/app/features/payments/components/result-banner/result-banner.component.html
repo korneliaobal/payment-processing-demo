@@ -1,0 +1,11 @@
+<section class="panel result-panel" aria-live="polite">
+  <div class="result-symbol" [class.rejected]="status() === 'NOT_OK'">
+    {{ presentation().symbol }}
+  </div>
+  <div class="eyebrow">{{ presentation().eyebrow }}</div>
+  <h2>{{ presentation().title }}</h2>
+  <p>{{ presentation().description }}</p>
+  <div class="payment-reference">
+    ID ZLECENIA <code>{{ paymentId() }}</code>
+  </div>
+</section>

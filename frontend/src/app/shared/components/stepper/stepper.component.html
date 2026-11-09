@@ -1,0 +1,11 @@
+<ol class="steps" [attr.aria-label]="label()">
+  @for (step of steps(); track step.id; let i = $index) {
+    <li
+      [class.current]="step.id === activeStep()"
+      [attr.aria-current]="step.id === activeStep() ? 'step' : null"
+    >
+      <span>{{ i + 1 }}</span
+      >{{ step.label }}
+    </li>
+  }
+</ol>

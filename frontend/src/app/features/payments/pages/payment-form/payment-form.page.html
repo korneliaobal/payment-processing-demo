@@ -1,0 +1,97 @@
+<form #paymentForm="ngForm" (ngSubmit)="review(paymentForm)" novalidate>
+  <div class="content-grid">
+    <div class="form-column">
+      <app-panel
+        title="Dane nadawcy"
+        number="01"
+        description="Rachunek, z którego zostanie zlecona płatność."
+      >
+        <button panel-action class="text-button" type="button" (click)="draft.fillExample()">
+          Wypełnij przykład ↗
+        </button>
+        <div class="fields">
+          <label
+            >Nazwa nadawcy <span>*</span
+            ><input
+              name="debtorName"
+              [ngModel]="draft.value().debtorName"
+              (ngModelChange)="draft.update({ debtorName: $event })"
+              required
+              [maxlength]="limits.maxNameLength"
+              placeholder="np. Nova Studio Sp. z o.o."
+          /></label>
+          <label
+            >Numer rachunku <span>*</span
+            ><input
+              name="debtorAccount"
+              [ngModel]="draft.value().debtorAccount"
+              (ngModelChange)="draft.update({ debtorAccount: $event })"
+              required
+              appBankAccount
+              #debtorAccount="ngModel"
+              [attr.aria-invalid]="debtorAccount.touched && debtorAccount.invalid"
+              aria-describedby="debtor-account-hint debtor-account-error"
+              [placeholder]="limits.accountPlaceholder"
+            /><small id="debtor-account-hint"
+              >Polski IBAN (PL + 26 cyfr) lub NRB (26 cyfr). Spacje są dozwolone.</small
+            >
+            @if (debtorAccount.touched && debtorAccount.invalid) {
+              <small id="debtor-account-error" class="field-error" role="alert"
+                >Wpisz poprawny polski numer konta. Sprawdzamy format i sumę kontrolną.</small
+              >
+            }
+          </label>
+          <label class="currency-field"
+            >Waluta płatności<select
+              name="currency"
+              [ngModel]="draft.value().currency"
+              (ngModelChange)="draft.update({ currency: $event })"
+            >
+              @for (currency of currencies; track currency) {
+                <option [value]="currency">{{ currency }}</option>
+              }
+            </select></label
+          >
+        </div>
+      </app-panel>
+      <app-panel
+        title="Odbiorcy i kwoty"
+        number="02"
+        [description]="
+          'Dodaj od 1 do ' + limits.maxRecipients + ' transakcji w ramach jednego zlecenia.'
+        "
+        [counter]="draft.recipients().length + ' / ' + limits.maxRecipients"
+      >
+        @for (recipient of draft.recipients(); track recipient.key; let i = $index) {
+          <app-recipient-editor
+            [recipient]="recipient"
+            [index]="i"
+            [currency]="draft.value().currency"
+            [canRemove]="draft.recipients().length > 1"
+            (changed)="draft.updateRecipient($event)"
+            (removed)="draft.removeRecipient($event)"
+          />
+        }
+        <button
+          class="add-button"
+          type="button"
+          (click)="draft.addRecipient()"
+          [disabled]="draft.recipients().length >= limits.maxRecipients"
+        >
+          ＋ Dodaj odbiorcę
+        </button>
+      </app-panel>
+    </div>
+    <app-payment-summary
+      [amount]="draft.total()"
+      [currency]="draft.value().currency"
+      [transactionCount]="draft.recipients().length"
+      heading="PODSUMOWANIE ZLECENIA"
+      description="Dane zostaną sprawdzone przez system. Wynik kontroli pojawi się po wysłaniu zlecenia."
+      actionLabel="Przejdź do weryfikacji"
+      actionType="submit"
+      [showPaymentType]="true"
+      footnote="Na tym etapie zlecenie nie jest jeszcze wysyłane."
+    />
+  </div>
+</form>

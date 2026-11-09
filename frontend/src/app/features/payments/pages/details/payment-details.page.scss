@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.result-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  gap: 15px;
+}
+
+.technical {
+  margin-top: 24px;
+  padding: 24px;
+}
+
+pre {
+  max-height: 400px;
+  overflow: auto;
+  font-size: 11px;
+  line-height: 1.7;
+  background: #f6f8f2;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+@media (max-width: 700px) {
+  .result-actions { flex-wrap: wrap; }
+}

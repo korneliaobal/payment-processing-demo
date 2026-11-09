@@ -1,0 +1,7 @@
+<div
+  class="alert"
+  [class.error]="tone() === 'error'"
+  [attr.role]="tone() === 'error' ? 'alert' : 'status'"
+>
+  {{ message() }}<span class="alert-action"><ng-content /></span>
+</div>

@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+.form-column {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.fields {
+  padding: 24px 26px;
+  display: grid;
+  gap: 21px;
+}
+
+.currency-field {
+  max-width: 160px;
+}
+
+.add-button {
+  background: var(--color-surface);
+  margin: 19px 26px;
+  width: calc(100% - 52px);
+  padding: 12px;
+  border: 1px dashed #ccd9c4;
+  color: #607d4f;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .fields {
+    padding: 20px;
+  }
+}

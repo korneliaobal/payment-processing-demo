@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.alert {
+  background: var(--color-surface) 7e6;
+  border: 1px solid #ead8b4;
+  color: #7d673d;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.alert.error {
+  background: #fcf0ed;
+  border-color: #edc9bc;
+  color: #9d5140;
+}
+
+.alert-action {
+  margin-left: 10px;
+}

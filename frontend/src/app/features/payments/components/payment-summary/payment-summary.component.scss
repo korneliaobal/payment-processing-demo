@@ -1,0 +1,85 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 24px;
+}
+
+.summary {
+  padding: 26px 23px;
+}
+
+.total {
+  font-size: 31px;
+  letter-spacing: -1px;
+  font-weight: 600;
+  margin: 19px 0 25px;
+  font-variant-numeric: tabular-nums;
+}
+
+.total span {
+  font-size: 13px;
+  letter-spacing: 0;
+  color: #8a967f;
+  font-weight: 400;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  margin: 16px 0;
+  color: #859080;
+}
+
+.summary-row strong {
+  color: #475b41;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.summary-divider {
+  border-top: 1px solid #e6ebe1;
+  margin: 25px 0 20px;
+}
+
+.info-note {
+  background: #f5f7ef;
+  border-radius: 7px;
+  padding: 13px;
+  display: flex;
+  align-items: start;
+  gap: 9px;
+  color: #8b9b76;
+  margin-bottom: 22px;
+}
+
+.info-note p {
+  font-size: 10px;
+  color: #819072;
+}
+
+.summary .primary {
+  width: 100%;
+}
+
+.summary-footnote {
+  display: block;
+  text-align: center;
+  font-size: 9px;
+  line-height: 1.7;
+  color: #a0a899;
+  margin-top: 12px;
+}
+
+@media (max-width: 1000px) {
+  :host {
+    position: static;
+  }
+  .summary .primary {
+    max-width: 360px;
+  }
+  .summary-footnote {
+    text-align: left;
+  }
+}

@@ -1,0 +1,61 @@
+<div class="recipient">
+  <div class="recipient-heading">
+    <strong><span class="recipient-dot"></span> Odbiorca {{ index() + 1 }}</strong
+    ><button
+      type="button"
+      class="remove"
+      (click)="removed.emit(recipient().key)"
+      [disabled]="!canRemove()"
+      [attr.aria-label]="'Usuń odbiorcę ' + (index() + 1)"
+    >
+      Usuń ×
+    </button>
+  </div>
+  <div class="recipient-fields">
+    <label class="recipient-name"
+      >Nazwa odbiorcy <span>*</span
+      ><input
+        [name]="'name' + recipient().key"
+        [ngModel]="recipient().name"
+        (ngModelChange)="changed.emit({ key: recipient().key, changes: { name: $event } })"
+        required
+        [maxlength]="limits.maxNameLength"
+        placeholder="Imię i nazwisko lub nazwa firmy"
+    /></label>
+    <label
+      >Numer rachunku <span>*</span
+      ><input
+        [name]="'account' + recipient().key"
+        [ngModel]="recipient().accountNumber"
+        (ngModelChange)="changed.emit({ key: recipient().key, changes: { accountNumber: $event } })"
+        required
+        appBankAccount
+        #account="ngModel"
+        [attr.aria-invalid]="account.touched && account.invalid"
+        [attr.aria-describedby]="'account-error-' + recipient().key"
+        [placeholder]="limits.accountPlaceholder"
+      />
+      @if (account.touched && account.invalid) {
+        <small [id]="'account-error-' + recipient().key" class="field-error" role="alert"
+          >Nieprawidłowy polski numer konta lub suma kontrolna.</small
+        >
+      }
+    </label>
+    <label
+      >Kwota <span>*</span>
+      <div class="amount-input">
+        <input
+          type="number"
+          [name]="'amount' + recipient().key"
+          [ngModel]="recipient().amount"
+          (ngModelChange)="changed.emit({ key: recipient().key, changes: { amount: $event } })"
+          required
+          [min]="limits.minAmount"
+          [max]="limits.maxAmount"
+          step="0.01"
+          placeholder="0,00"
+        /><span>{{ currency() }}</span>
+      </div></label
+    >
+  </div>
+</div>

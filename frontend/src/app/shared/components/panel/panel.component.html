@@ -1,0 +1,20 @@
+<section class="panel">
+  <div class="panel-header">
+    <div>
+      <h2>
+        @if (number()) {
+          <span class="section-number">{{ number() }}</span>
+        }
+        {{ title() }}
+      </h2>
+      @if (description()) {
+        <p>{{ description() }}</p>
+      }
+    </div>
+    <ng-content select="[panel-action]" />
+    @if (counter()) {
+      <span class="counter">{{ counter() }}</span>
+    }
+  </div>
+  <ng-content />
+</section>
