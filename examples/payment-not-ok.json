@@ -1,0 +1,18 @@
+{
+  "debtor": {
+    "name": "Demo Sender",
+    "accountNumber": "PL00123456789012345678901234"
+  },
+  "currency": "PLN",
+  "transactionCount": 1,
+  "totalAmount": 5,
+  "transactions": [
+    {
+      "creditor": {
+        "name": "Demo Recipient",
+        "accountNumber": "PL00987654321098765432109876"
+      },
+      "amount": 5
+    }
+  ]
+}
